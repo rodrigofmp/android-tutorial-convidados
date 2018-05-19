@@ -2,6 +2,8 @@ package com.devmasterteam.meusconvidados;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,6 +30,22 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        this.startDefaultFragment();
+    }
+
+    private void startDefaultFragment() {
+        Fragment fragment = null;
+        Class fragmentClass = AllInvitedFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment).commit();
     }
 
     @Override
@@ -65,16 +83,30 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        android.support.v4.app.Fragment fragment = null;
+        Class fragmentClass = null;
+
         int id = item.getItemId();
 
         if (id == R.id.nav_all_guests) {
-
+            fragmentClass = AllInvitedFragment.class;
         } else if (id == R.id.nav_present) {
-
+            fragmentClass = PresentFragment.class;
         } else if (id == R.id.nav_absent) {
-
+            fragmentClass = AbsentFragment.class;
         }
+
+        try {
+            fragment = (Fragment)fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_content, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
