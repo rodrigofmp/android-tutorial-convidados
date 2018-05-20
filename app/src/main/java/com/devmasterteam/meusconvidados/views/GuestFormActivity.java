@@ -1,7 +1,9 @@
-package com.devmasterteam.meusconvidados;
+package com.devmasterteam.meusconvidados.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.devmasterteam.meusconvidados.R;
 
 public class GuestFormActivity extends AppCompatActivity {
 
