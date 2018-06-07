@@ -7,9 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.devmasterteam.meusconvidados.R;
+import com.devmasterteam.meusconvidados.entities.GuestEntity;
 import com.devmasterteam.meusconvidados.viewholder.GuestViewHolder;
 
+import java.util.List;
+
 public class GuestListAdapter extends RecyclerView.Adapter<GuestViewHolder>{
+
+    private List<GuestEntity> mGuestEntityList;
+
+    public GuestListAdapter(List<GuestEntity> guestEntityList) {
+        this.mGuestEntityList = guestEntityList;
+    }
 
     @Override
     public GuestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -24,11 +33,12 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestViewHolder>{
 
     @Override
     public void onBindViewHolder(GuestViewHolder holder, int position) {
-
+        GuestEntity guestEntity = this.mGuestEntityList.get(position);
+        holder.bindData(guestEntity);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.mGuestEntityList.size();
     }
 }

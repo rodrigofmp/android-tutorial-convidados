@@ -2,10 +2,14 @@ package com.devmasterteam.meusconvidados.repository;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.devmasterteam.meusconvidados.constants.DatabaseConstants;
 import com.devmasterteam.meusconvidados.entities.GuestEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuestRepository {
 
@@ -40,5 +44,38 @@ public class GuestRepository {
         catch (Exception ex) {
             return false;
         }
+    }
+
+    public List<GuestEntity> getGuestsByQuery(String query) {
+
+        List<GuestEntity> list = new ArrayList<>();
+
+        try {
+
+            SQLiteDatabase sqLiteDatabase = this.mGuestDatabaseHelper.getReadableDatabase();
+            Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+
+            if (cursor != null && cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    GuestEntity guestEntity = new GuestEntity();
+                    guestEntity.setId(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.ID)));
+                    guestEntity.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.NAME)));
+                    guestEntity.setConfirmed(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.PRESENCE)));
+                    list.add(guestEntity);
+                }
+            }
+
+            if (cursor != null) {
+                cursor.close();
+            }
+
+        }
+        catch (Exception ex) {
+
+        }
+        finally {
+            return list;
+        }
+
     }
 }
