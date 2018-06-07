@@ -15,4 +15,6 @@
     <string name="ausente">Ausente</string>
     <string name="salvar">Salvar</string>
     <string name="nome_obrigatorio">Nome é obrigatório.</string>
+    <string name="salvo_com_sucesso">Convidado salvo com sucesso.</string>
+    <string name="erro_ao_salvar">Erro ao salvar.</string>
 </resources>
