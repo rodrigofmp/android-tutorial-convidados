@@ -1,6 +1,7 @@
 package com.devmasterteam.meusconvidados.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,9 @@ import android.view.ViewGroup;
 import com.devmasterteam.meusconvidados.R;
 import com.devmasterteam.meusconvidados.adapter.GuestListAdapter;
 import com.devmasterteam.meusconvidados.business.GuestBusiness;
+import com.devmasterteam.meusconvidados.constants.GuestConstants;
 import com.devmasterteam.meusconvidados.entities.GuestEntity;
+import com.devmasterteam.meusconvidados.listener.OnGuestListenerInteractionListener;
 
 import java.util.List;
 
@@ -34,6 +37,25 @@ public class AllInvitedFragment extends Fragment {
 
         Context context = view.getContext();
 
+        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+            @Override
+            public void onListClick(int id) {
+                // Abrir activity do formulário
+                Bundle bundle = new Bundle();
+                bundle.putInt(GuestConstants.GUEST_ID, id);
+
+                Intent intent = new Intent(getContext(), GuestFormActivity.class);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick(int id) {
+
+            }
+        };
+
         this.mGuestBusiness = new GuestBusiness(context);
         List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
 
@@ -41,7 +63,7 @@ public class AllInvitedFragment extends Fragment {
         this.mViewHolder.mRecyclerAllInvited = view.findViewById(R.id.recycler_all_invited);
 
         // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList);
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
         this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
 
         // Definir um layout
