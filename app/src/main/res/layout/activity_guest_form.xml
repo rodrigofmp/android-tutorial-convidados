@@ -40,6 +40,16 @@
 
     </RadioGroup>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/documento" />
+
+    <EditText
+        android:id="@+id/edit_document"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/button_save"
         android:layout_width="match_parent"

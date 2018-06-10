@@ -29,6 +29,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         this.mViewHolder.mRadioNotConfirmed = findViewById(R.id.radio_not_confirmed);
         this.mViewHolder.mRadioPresent = findViewById(R.id.radio_present);
         this.mViewHolder.mRadioAbsent = findViewById(R.id.radio_absent);
+        this.mViewHolder.mEditDocument = findViewById(R.id.edit_document);
         this.mViewHolder.mButtonSave = findViewById(R.id.button_save);
 
         this.mGuestBusiness = new GuestBusiness(this);
@@ -52,6 +53,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
             } else {
                 this.mViewHolder.mRadioNotConfirmed.setChecked(true);
             }
+            this.mViewHolder.mEditDocument.setText(guestEntity.getDocument());
         }
     }
 
@@ -81,6 +83,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         } else {
             guestEntity.setConfirmed(GuestConstants.CONFIRMATION.ABSENT);
         }
+        guestEntity.setDocument(this.mViewHolder.mEditDocument.getText().toString());
 
         if (this.mGuestId == 0) {
             if (mGuestBusiness.insert(guestEntity)) {
@@ -116,6 +119,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         RadioButton mRadioNotConfirmed;
         RadioButton mRadioPresent;
         RadioButton mRadioAbsent;
+        EditText mEditDocument;
         Button mButtonSave;
     }
 }

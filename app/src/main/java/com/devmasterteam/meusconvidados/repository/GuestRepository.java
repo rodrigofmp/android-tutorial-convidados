@@ -37,6 +37,7 @@ public class GuestRepository {
             ContentValues contentValues = new ContentValues();
             contentValues.put(DatabaseConstants.GUEST.COLUMNS.NAME, guestEntity.getName());
             contentValues.put(DatabaseConstants.GUEST.COLUMNS.PRESENCE, guestEntity.getConfirmed());
+            contentValues.put(DatabaseConstants.GUEST.COLUMNS.DOCUMENT, guestEntity.getDocument());
 
             sqLiteDatabase.insert(DatabaseConstants.GUEST.TABLE_NAME, null, contentValues);
 
@@ -59,9 +60,12 @@ public class GuestRepository {
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     GuestEntity guestEntity = new GuestEntity();
+
                     guestEntity.setId(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.ID)));
                     guestEntity.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.NAME)));
                     guestEntity.setConfirmed(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.PRESENCE)));
+                    guestEntity.setDocument(cursor.getString(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.DOCUMENT)));
+
                     list.add(guestEntity);
                 }
             }
@@ -88,7 +92,8 @@ public class GuestRepository {
             String[] projection = {
                     DatabaseConstants.GUEST.COLUMNS.ID,
                     DatabaseConstants.GUEST.COLUMNS.NAME,
-                    DatabaseConstants.GUEST.COLUMNS.PRESENCE
+                    DatabaseConstants.GUEST.COLUMNS.PRESENCE,
+                    DatabaseConstants.GUEST.COLUMNS.DOCUMENT
             };
 
             String selection = DatabaseConstants.GUEST.COLUMNS.ID + " = ?";
@@ -110,6 +115,7 @@ public class GuestRepository {
                 guestEntity.setId(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.ID)));
                 guestEntity.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.NAME)));
                 guestEntity.setConfirmed(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.PRESENCE)));
+                guestEntity.setDocument(cursor.getString(cursor.getColumnIndex(DatabaseConstants.GUEST.COLUMNS.DOCUMENT)));
 
             }
 
@@ -131,6 +137,7 @@ public class GuestRepository {
             ContentValues contentValues = new ContentValues();
             contentValues.put(DatabaseConstants.GUEST.COLUMNS.NAME, guestEntity.getName());
             contentValues.put(DatabaseConstants.GUEST.COLUMNS.PRESENCE, guestEntity.getConfirmed());
+            contentValues.put(DatabaseConstants.GUEST.COLUMNS.DOCUMENT, guestEntity.getDocument());
 
             String selection = DatabaseConstants.GUEST.COLUMNS.ID + " = ?";
             String[] selectionArgs = {String.valueOf(guestEntity.getId())};

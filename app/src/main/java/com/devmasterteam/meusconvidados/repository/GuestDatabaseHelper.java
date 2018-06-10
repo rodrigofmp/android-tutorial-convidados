@@ -9,14 +9,15 @@ import com.devmasterteam.meusconvidados.constants.DatabaseConstants;
 
 public class GuestDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "MeusConvidados.db";
 
     private static final String SQL_CREATE_TABLE_GUEST =
             "create table " + DatabaseConstants.GUEST.TABLE_NAME + " ("
             + DatabaseConstants.GUEST.COLUMNS.ID + " integer primary key autoincrement, "
             + DatabaseConstants.GUEST.COLUMNS.NAME + " text, "
-            + DatabaseConstants.GUEST.COLUMNS.PRESENCE + " integer);";
+            + DatabaseConstants.GUEST.COLUMNS.PRESENCE + " integer, "
+            + DatabaseConstants.GUEST.COLUMNS.DOCUMENT + " text null);";
 
     private static final String DROP_TABLE_GUEST =
             "drop table if exists "
