@@ -3,6 +3,7 @@ package com.devmasterteam.meusconvidados.business;
 import android.content.Context;
 
 import com.devmasterteam.meusconvidados.constants.DatabaseConstants;
+import com.devmasterteam.meusconvidados.constants.GuestConstants;
 import com.devmasterteam.meusconvidados.entities.GuestEntity;
 import com.devmasterteam.meusconvidados.repository.GuestRepository;
 
@@ -26,5 +27,19 @@ public class GuestBusiness {
 
     public GuestEntity load(int id) {
         return this.mGuestRepository.load(id);
+    }
+
+    public List<GuestEntity> getPresents() {
+        return this.mGuestRepository.getGuestsByQuery(
+                "select * " +
+                "  from " + DatabaseConstants.GUEST.TABLE_NAME +
+                " where presence = " + GuestConstants.CONFIRMATION.PRESENT);
+    }
+
+    public List<GuestEntity> getAbsents() {
+        return this.mGuestRepository.getGuestsByQuery(
+                "select * " +
+                        "  from " + DatabaseConstants.GUEST.TABLE_NAME +
+                        " where presence = " + GuestConstants.CONFIRMATION.ABSENT);
     }
 }
