@@ -22,7 +22,9 @@ public class GuestBusiness {
     }
 
     public List<GuestEntity> getInvited() {
-        return this.mGuestRepository.getGuestsByQuery("select * from " + DatabaseConstants.GUEST.TABLE_NAME);
+        return this.mGuestRepository.getGuestsByQuery(
+"select * " +
+"  from " + DatabaseConstants.GUEST.TABLE_NAME);
     }
 
     public GuestEntity load(int id) {
@@ -45,5 +47,9 @@ public class GuestBusiness {
 
     public boolean update(GuestEntity guestEntity) {
         return this.mGuestRepository.update(guestEntity);
+    }
+
+    public boolean remove(int id) {
+        return this.mGuestRepository.remove(id);
     }
 }

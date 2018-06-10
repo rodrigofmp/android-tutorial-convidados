@@ -147,4 +147,22 @@ public class GuestRepository {
             return false;
         }
     }
+
+    public boolean remove(int id) {
+        try {
+
+            SQLiteDatabase sqLiteDatabase = this.mGuestDatabaseHelper.getWritableDatabase();
+
+            String selection = DatabaseConstants.GUEST.COLUMNS.ID + " = ?";
+            String[] selectionArgs = {String.valueOf(id)};
+
+            sqLiteDatabase.delete(DatabaseConstants.GUEST.TABLE_NAME, selection, selectionArgs);
+
+            return true;
+
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
 }
