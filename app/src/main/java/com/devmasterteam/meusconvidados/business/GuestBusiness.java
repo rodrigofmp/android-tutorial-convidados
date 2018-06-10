@@ -31,15 +31,15 @@ public class GuestBusiness {
 
     public List<GuestEntity> getPresents() {
         return this.mGuestRepository.getGuestsByQuery(
-                "select * " +
-                "  from " + DatabaseConstants.GUEST.TABLE_NAME +
-                " where presence = " + GuestConstants.CONFIRMATION.PRESENT);
+"select * " +
+"  from " + DatabaseConstants.GUEST.TABLE_NAME +
+" where " + DatabaseConstants.GUEST.COLUMNS.PRESENCE + " = " + GuestConstants.CONFIRMATION.PRESENT);
     }
 
     public List<GuestEntity> getAbsents() {
         return this.mGuestRepository.getGuestsByQuery(
-                "select * " +
-                        "  from " + DatabaseConstants.GUEST.TABLE_NAME +
-                        " where presence = " + GuestConstants.CONFIRMATION.ABSENT);
+"select * " +
+"  from " + DatabaseConstants.GUEST.TABLE_NAME +
+" where " + DatabaseConstants.GUEST.COLUMNS.PRESENCE + " = " + GuestConstants.CONFIRMATION.ABSENT);
     }
 }
