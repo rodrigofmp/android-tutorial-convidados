@@ -9,11 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.devmasterteam.meusconvidados.R;
 import com.devmasterteam.meusconvidados.adapter.GuestListAdapter;
 import com.devmasterteam.meusconvidados.business.GuestBusiness;
 import com.devmasterteam.meusconvidados.constants.GuestConstants;
+import com.devmasterteam.meusconvidados.entities.GuestCount;
 import com.devmasterteam.meusconvidados.entities.GuestEntity;
 import com.devmasterteam.meusconvidados.listener.OnGuestListenerInteractionListener;
 
@@ -36,6 +38,10 @@ public class AllInvitedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_invited, container, false);
 
         Context context = view.getContext();
+
+        this.mViewHolder.mTextPresentCount = view.findViewById(R.id.text_present_count);
+        this.mViewHolder.mTextAbsentCount = view.findViewById(R.id.text_absent_count);
+        this.mViewHolder.mTextAllInvitedCount = view.findViewById(R.id.text_all_invited);
 
         OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
             @Override
@@ -69,11 +75,24 @@ public class AllInvitedFragment extends Fragment {
         // Definir um layout
         this.mViewHolder.mRecyclerAllInvited.setLayoutManager(new LinearLayoutManager(context));
 
+        this.loadDashboard();
+
         return view;
+    }
+
+    private void loadDashboard() {
+        GuestCount guestCount = this.mGuestBusiness.loadDashboard();
+
+        this.mViewHolder.mTextAllInvitedCount.setText(String.valueOf(guestCount.getAllInvitedCount()));
+        this.mViewHolder.mTextPresentCount.setText(String.valueOf(guestCount.getPresentCount()));
+        this.mViewHolder.mTextAbsentCount.setText(String.valueOf(guestCount.getAbsentCount()));
     }
 
     private static class ViewHolder {
         RecyclerView mRecyclerAllInvited;
+        TextView mTextPresentCount;
+        TextView mTextAbsentCount;
+        TextView mTextAllInvitedCount;
     }
 
 }

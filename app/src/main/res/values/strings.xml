@@ -21,4 +21,5 @@
     <string name="deseja_remover_o_convidado">Deseja remover o convidado?</string>
     <string name="resposta_sim">Sim</string>
     <string name="resposta_nao">Não</string>
+    <string name="total">Total</string>
 </resources>
