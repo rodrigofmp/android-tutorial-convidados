@@ -192,7 +192,7 @@ public class GuestRepository {
             cursor = sqLiteDatabase.rawQuery(sqlAbsent, null);
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
-                guestCount.setPresentCount(cursor.getInt(0));
+                guestCount.setAbsentCount(cursor.getInt(0));
             }
 
             // ALL
