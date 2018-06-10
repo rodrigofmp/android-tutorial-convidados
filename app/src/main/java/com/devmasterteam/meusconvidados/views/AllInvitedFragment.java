@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.devmasterteam.meusconvidados.R;
 import com.devmasterteam.meusconvidados.adapter.GuestListAdapter;
@@ -60,6 +61,11 @@ public class AllInvitedFragment extends Fragment {
             @Override
             public void onDeleteClick(int id) {
                 mGuestBusiness.remove(id);
+
+                Toast.makeText(getContext(), getString(R.string.convidado_removido_com_sucesso), Toast.LENGTH_LONG).show();
+
+                loadDashboard();
+                loadGuests();
             }
         };
 
