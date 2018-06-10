@@ -23,6 +23,7 @@ public class AbsentFragment extends Fragment {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class AbsentFragment extends Fragment {
 
         Context context = view.getContext();
 
-        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+        this.mOnGuestListenerInteractionListener = new OnGuestListenerInteractionListener() {
             @Override
             public void onListClick(int id) {
                 // Abrir activity do formulário
@@ -57,20 +58,32 @@ public class AbsentFragment extends Fragment {
         };
 
         this.mGuestBusiness = new GuestBusiness(context);
-        List<GuestEntity> guestEntityList = this.mGuestBusiness.getAbsents();
 
         // Obter um recycler
         this.mViewHolder.mRecyclerAbsent = view.findViewById(R.id.recycler_absent);
-
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
-        this.mViewHolder.mRecyclerAbsent.setAdapter(guestListAdapter);
 
         // Definir um layout
         this.mViewHolder.mRecyclerAbsent.setLayoutManager(new LinearLayoutManager(context));
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.loadGuests();
+    }
+
+    private void loadGuests() {
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getAbsents();
+
+        // Definir um adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, this.mOnGuestListenerInteractionListener);
+        this.mViewHolder.mRecyclerAbsent.setAdapter(guestListAdapter);
+
+        guestListAdapter.notifyDataSetChanged();
+    }
+
 
     private static class ViewHolder {
         RecyclerView mRecyclerAbsent;

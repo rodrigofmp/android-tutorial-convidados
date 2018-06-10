@@ -24,6 +24,7 @@ public class PresentFragment extends Fragment {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class PresentFragment extends Fragment {
 
         Context context = view.getContext();
 
-        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+        this.mOnGuestListenerInteractionListener = new OnGuestListenerInteractionListener() {
             @Override
             public void onListClick(int id) {
                 // Abrir activity do formulário
@@ -58,19 +59,30 @@ public class PresentFragment extends Fragment {
         };
 
         this.mGuestBusiness = new GuestBusiness(context);
-        List<GuestEntity> guestEntityList = this.mGuestBusiness.getPresents();
 
         // Obter um recycler
         this.mViewHolder.mRecyclerPresent = view.findViewById(R.id.recycler_present);
-
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
-        this.mViewHolder.mRecyclerPresent.setAdapter(guestListAdapter);
 
         // Definir um layout
         this.mViewHolder.mRecyclerPresent.setLayoutManager(new LinearLayoutManager(context));
 
         return view;
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.loadGuests();        
+    }
+
+    private void loadGuests() {
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getPresents();
+
+        // Definir um adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, this.mOnGuestListenerInteractionListener);
+        this.mViewHolder.mRecyclerPresent.setAdapter(guestListAdapter);
+
+        guestListAdapter.notifyDataSetChanged();
     }
 
     private static class ViewHolder {

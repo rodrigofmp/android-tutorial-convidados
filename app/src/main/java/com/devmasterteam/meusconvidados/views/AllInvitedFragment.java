@@ -25,6 +25,7 @@ public class AllInvitedFragment extends Fragment {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class AllInvitedFragment extends Fragment {
         this.mViewHolder.mTextAbsentCount = view.findViewById(R.id.text_absent_count);
         this.mViewHolder.mTextAllInvitedCount = view.findViewById(R.id.text_all_invited);
 
-        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+        this.mOnGuestListenerInteractionListener = new OnGuestListenerInteractionListener() {
             @Override
             public void onListClick(int id) {
                 // Abrir activity do formulário
@@ -63,14 +64,10 @@ public class AllInvitedFragment extends Fragment {
         };
 
         this.mGuestBusiness = new GuestBusiness(context);
-        List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
+
 
         // Obter um recycler
         this.mViewHolder.mRecyclerAllInvited = view.findViewById(R.id.recycler_all_invited);
-
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
-        this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
 
         // Definir um layout
         this.mViewHolder.mRecyclerAllInvited.setLayoutManager(new LinearLayoutManager(context));
@@ -78,6 +75,25 @@ public class AllInvitedFragment extends Fragment {
         this.loadDashboard();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        this.loadDashboard();
+        this.loadGuests();
+    }
+
+    private void loadGuests() {
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
+
+        // Definir um adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, this.mOnGuestListenerInteractionListener);
+        this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
+
+        // Renderizar recycler view
+        guestListAdapter.notifyDataSetChanged();
     }
 
     private void loadDashboard() {
