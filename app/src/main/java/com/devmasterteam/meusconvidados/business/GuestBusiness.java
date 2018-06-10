@@ -42,4 +42,8 @@ public class GuestBusiness {
 "  from " + DatabaseConstants.GUEST.TABLE_NAME +
 " where " + DatabaseConstants.GUEST.COLUMNS.PRESENCE + " = " + GuestConstants.CONFIRMATION.ABSENT);
     }
+
+    public boolean update(GuestEntity guestEntity) {
+        return this.mGuestRepository.update(guestEntity);
+    }
 }

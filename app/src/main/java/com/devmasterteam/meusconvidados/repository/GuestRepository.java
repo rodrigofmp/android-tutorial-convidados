@@ -125,4 +125,26 @@ public class GuestRepository {
             return guestEntity;
         }
     }
+
+    public boolean update(GuestEntity guestEntity) {
+        try {
+
+            SQLiteDatabase sqLiteDatabase = this.mGuestDatabaseHelper.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DatabaseConstants.GUEST.COLUMNS.NAME, guestEntity.getName());
+            contentValues.put(DatabaseConstants.GUEST.COLUMNS.PRESENCE, guestEntity.getConfirmed());
+
+            String selection = DatabaseConstants.GUEST.COLUMNS.ID + " = ?";
+            String[] selectionArgs = {String.valueOf(guestEntity.getId())};
+
+            sqLiteDatabase.update(DatabaseConstants.GUEST.TABLE_NAME, contentValues, selection, selectionArgs);
+
+            return true;
+
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
 }
