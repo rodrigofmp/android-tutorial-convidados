@@ -25,4 +25,5 @@
     <string name="convidado_removido_com_sucesso">Convidado removido com sucesso.</string>
     <string name="documento">Documento</string>
     <string name="gerenciamento_de_convidados">Gerenciamento de Convidados</string>
+    <string name="confirmacao">Confirmação</string>
 </resources>

@@ -4,17 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/activity_general_padding"
     tools:context=".views.GuestFormActivity">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/textlabel"
         android:text="@string/nome" />
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        style="@style/textedit" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/textlabel"
+        android:text="@string/documento"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/edit_document"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/textedit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        style="@style/textlabel"
+        android:text="@string/confirmacao" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -30,30 +54,28 @@
             android:id="@+id/radio_present"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/presente" />
+            android:text="@string/presente"
+            android:textColor="@color/colorTextPresent"/>
 
         <RadioButton
             android:id="@+id/radio_absent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ausente" />
+            android:text="@string/ausente"
+            android:textColor="@color/colorTextAbsent" />
 
     </RadioGroup>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/documento" />
-
-    <EditText
-        android:id="@+id/edit_document"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/salvar" />
+        android:text="@string/salvar"
+        android:layout_marginTop="80dp"
+        android:padding="20dp"
+        android:background="@drawable/round_btn_linear_green"
+        android:textColor="@color/colorTextButton"
+        android:textStyle="bold"
+        />
 
 </LinearLayout>
